@@ -1,0 +1,18 @@
+{
+  "id": "TICKET-1755374650925-E4OWZU",
+  "problem_id": "custom_banking_issue",
+  "title": "System Issue: Custom banking system integration failure causing ...",
+  "description": "Custom banking system integration failure causing transaction processing delays",
+  "status": "open",
+  "urgency": "critical",
+  "created_at": "2025-08-16T20:04:10.925Z",
+  "system_context": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "hostname": "Vedants-MacBook-Air.local",
+    "memory_gb": 16,
+    "cpu_count": 10
+  },
+  "assigned_team": "incident_response",
+  "estimated_response_time": "15 minutes"
+}

@@ -1,0 +1,202 @@
+#!/bin/bash
+
+echo "🔄 Resetting to Demo State (6 Core Solutions)"
+echo "=============================================="
+echo ""
+
+# Remove existing database
+rm -f solutions_database.json
+
+# Create a minimal solution database for demo
+cat > solutions_database.json << 'EOF'
+[
+  {
+    "id": "memory_critical_solution_1",
+    "problem_patterns": ["memory_critical", "memory_high"],
+    "title": "Free Up Memory - Close Resource-Heavy Applications",
+    "description": "Close unnecessary applications and browser tabs to free up memory",
+    "solution_type": "process_management",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "osascript -e \"tell application \\\"Google Chrome\\\" to close every tab of every window\"",
+        "description": "Close all Chrome tabs",
+        "risk_level": "low"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux", "win32"],
+      "min_memory_gb": 0,
+      "requires_admin": false
+    },
+    "success_rate": 0.85,
+    "application_count": 42,
+    "success_count": 36,
+    "last_updated": "2024-08-16T18:00:00Z",
+    "version": "1.2.0",
+    "keywords": ["memory", "chrome", "browser", "cleanup"],
+    "created_by": "system",
+    "notes": "Works well for browser-related memory issues"
+  },
+  {
+    "id": "disk_critical_solution_1",
+    "problem_patterns": ["disk_critical_*", "disk_high_*"],
+    "title": "Clean Temporary Files and Cache",
+    "description": "Remove temporary files, cache, and logs to free up disk space",
+    "solution_type": "cleanup",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "rm -rf ~/Library/Caches/*",
+        "description": "Clear user cache",
+        "risk_level": "low"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux"],
+      "min_memory_gb": 0,
+      "requires_admin": false
+    },
+    "success_rate": 0.92,
+    "application_count": 28,
+    "success_count": 26,
+    "last_updated": "2024-08-16T18:00:00Z",
+    "version": "1.1.0",
+    "keywords": ["disk", "cleanup", "cache", "temporary"],
+    "created_by": "system",
+    "notes": "Effective for most disk space issues"
+  },
+  {
+    "id": "cpu_high_load_solution_1",
+    "problem_patterns": ["cpu_high_load", "process_cpu_hog_*"],
+    "title": "Reduce CPU Load - Process Management",
+    "description": "Identify and manage high-CPU processes",
+    "solution_type": "process_management",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "sudo renice +10 -p {process_pid}",
+        "description": "Lower process priority",
+        "risk_level": "medium"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux"],
+      "min_memory_gb": 0,
+      "requires_admin": true
+    },
+    "success_rate": 0.78,
+    "application_count": 15,
+    "success_count": 12,
+    "last_updated": "2024-08-16T18:00:00Z",
+    "version": "1.0.0",
+    "keywords": ["cpu", "process", "priority", "performance"],
+    "created_by": "system",
+    "notes": "Requires process PID to be substituted"
+  },
+  {
+    "id": "security_incident_response",
+    "problem_patterns": ["security_breach_detected", "malware_communication_detected"],
+    "title": "Security Incident Response - Immediate Threat Containment",
+    "description": "Comprehensive security incident response including threat isolation and evidence preservation",
+    "solution_type": "security_response",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "sudo pfctl -f /etc/pf.conf && sudo pfctl -e",
+        "description": "Activate firewall and block suspicious connections",
+        "risk_level": "medium"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux"],
+      "min_memory_gb": 0,
+      "requires_admin": true
+    },
+    "success_rate": 0.94,
+    "application_count": 67,
+    "success_count": 63,
+    "last_updated": "2024-08-16T20:00:00Z",
+    "version": "2.1.0",
+    "keywords": ["security", "incident", "response", "firewall", "isolation", "breach"],
+    "created_by": "security_team",
+    "notes": "Critical security response - isolates threats and preserves evidence for forensics"
+  },
+  {
+    "id": "payment_service_recovery",
+    "problem_patterns": ["payment_service_degradation", "database_performance_degradation"],
+    "title": "Payment Service Recovery - Database & Connection Pool Optimization",
+    "description": "Restore payment service functionality by optimizing database connections and clearing bottlenecks",
+    "solution_type": "service_recovery",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "pkill -f \"memory_leak_simulator\"; pkill -f \"database_load_simulator\"",
+        "description": "Stop resource-intensive simulation processes",
+        "risk_level": "low"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux"],
+      "min_memory_gb": 4,
+      "requires_admin": false
+    },
+    "success_rate": 0.91,
+    "application_count": 43,
+    "success_count": 39,
+    "last_updated": "2024-08-16T20:00:00Z",
+    "version": "1.8.0",
+    "keywords": ["payment", "service", "database", "recovery", "optimization", "revenue"],
+    "created_by": "platform_team",
+    "notes": "Critical for revenue protection - restores payment processing capability"
+  },
+  {
+    "id": "banking_incident_cleanup",
+    "problem_patterns": ["incident_simulation_active", "security_breach_detected", "payment_service_degradation", "data_integrity_risk"],
+    "title": "Complete Banking Incident Cleanup & System Restoration",
+    "description": "Comprehensive cleanup of banking incident simulation and full system restoration",
+    "solution_type": "incident_cleanup",
+    "commands": [
+      {
+        "platform": "darwin",
+        "command": "rm -rf ~/banking_incident_demo",
+        "description": "Remove all incident simulation files",
+        "risk_level": "low"
+      },
+      {
+        "platform": "darwin",
+        "command": "pkill -f \"memory_leak_simulator\"; pkill -f \"database_load_simulator\"",
+        "description": "Terminate all simulation processes",
+        "risk_level": "low"
+      }
+    ],
+    "system_requirements": {
+      "platforms": ["darwin", "linux"],
+      "min_memory_gb": 0,
+      "requires_admin": false
+    },
+    "success_rate": 1.0,
+    "application_count": 0,
+    "success_count": 0,
+    "last_updated": "2024-08-16T20:00:00Z",
+    "version": "1.0.0",
+    "keywords": ["banking", "incident", "cleanup", "restoration", "security", "payment", "demo"],
+    "created_by": "system",
+    "notes": "Complete incident response cleanup - restores all banking services to normal operation"
+  }
+]
+EOF
+
+echo "✅ Database reset to 6 core solutions"
+echo ""
+echo "📊 Current Database Status:"
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"view_solutions_database","arguments":{}}}' | node mcp-server.js 2>/dev/null | jq -r '.result.content[1].text' | grep -E "(total_solutions)" -A 3
+
+echo ""
+echo "🎯 Demo Flow:"
+echo "1. Start: 6 solutions in database"
+echo "2. Create custom problem (no solution found)"
+echo "3. Support ticket → Resolution → Database grows to 7 solutions"
+echo "4. Clear learning demonstrated: 6 → 7 solutions"
+echo ""
+echo "🚀 Ready for hackathon demo!"

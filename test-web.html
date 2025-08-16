@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Diagnostics MCP Server Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        button {
+            background-color: #007cba;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #005a87;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #e2e3e5;
+            border: 1px solid #d6d8db;
+            color: #383d41;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .status.online {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status.offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 System Diagnostics MCP Server Test Interface</h1>
+        
+        <div class="test-section">
+            <h3>Server Status</h3>
+            <div id="serverStatus" class="status">Checking server status...</div>
+            <button onclick="checkServerStatus()">Check Server Status</button>
+        </div>
+
+        <div class="test-section">
+            <h3>System Information Test</h3>
+            <p>This will call the <code>get_system_info</code> tool to collect comprehensive system diagnostics.</p>
+            <button onclick="testSystemInfo()" id="systemInfoBtn">Get System Information</button>
+            <div id="systemInfoResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Instructions</h3>
+            <div class="info result">
+<strong>How to use this MCP server:</strong>
+
+1. <strong>With Claude Desktop:</strong>
+   - Copy the claude-desktop-config.json to your Claude Desktop config directory
+   - Restart Claude Desktop
+   - The system-diagnostics tools will be available
+
+2. <strong>With other MCP clients:</strong>
+   - Connect to: http://localhost:8181
+   - Use the MCP protocol to call tools
+
+3. <strong>Available Tools:</strong>
+   - get_system_info: Comprehensive system diagnostics
+   
+4. <strong>For Banking/Enterprise Use:</strong>
+   - Configure which diagnostics to enable/disable
+   - Sanitize sensitive information
+   - Integrate with support ticket systems
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkServerStatus() {
+            const statusDiv = document.getElementById('serverStatus');
+            try {
+                const response = await fetch('http://localhost:8181');
+                if (response.status === 404) {
+                    statusDiv.textContent = '✅ Server is running on port 8181';
+                    statusDiv.className = 'status online';
+                } else {
+                    statusDiv.textContent = '⚠️ Server responded but with unexpected status: ' + response.status;
+                    statusDiv.className = 'status offline';
+                }
+            } catch (error) {
+                statusDiv.textContent = '❌ Server is not running. Run: npm run dev';
+                statusDiv.className = 'status offline';
+            }
+        }
+
+        async function testSystemInfo() {
+            const btn = document.getElementById('systemInfoBtn');
+            const resultDiv = document.getElementById('systemInfoResult');
+            
+            btn.disabled = true;
+            btn.textContent = 'Collecting System Info...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.textContent = 'Testing system information collection...\n\nNote: This web interface cannot directly call MCP tools due to CORS restrictions.\nBut we can show you what data would be collected:';
+
+            // Simulate the data collection that the MCP server would do
+            try {
+                const systemData = {
+                    timestamp: new Date().toISOString(),
+                    platform: navigator.platform,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    cookieEnabled: navigator.cookieEnabled,
+                    onLine: navigator.onLine,
+                    hardwareConcurrency: navigator.hardwareConcurrency,
+                    memory: navigator.deviceMemory || 'Not available',
+                    connection: navigator.connection ? {
+                        effectiveType: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink
+                    } : 'Not available'
+                };
+
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ System Information (Browser-level data):
+
+${JSON.stringify(systemData, null, 2)}
+
+🔧 The actual MCP server collects much more detailed information:
+- Complete OS details (platform, architecture, release)
+- Memory usage (total, free, used percentage)  
+- CPU information (model, cores, load average)
+- Disk usage across all drives
+- Running processes and resource usage
+- Network configuration
+- Installed software versions
+- System logs and error messages
+
+To test the full MCP server:
+1. Use Claude Desktop with the provided config
+2. Connect via MCP client to http://localhost:8181
+3. Call the 'get_system_info' tool`;
+
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = '❌ Error: ' + error.message;
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Get System Information';
+        }
+
+        // Check server status on page load
+        window.onload = checkServerStatus;
+    </script>
+</body>
+</html>

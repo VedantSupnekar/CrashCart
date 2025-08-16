@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "system-diagnostics": {
+      "command": "npx",
+      "args": ["@smithery/cli", "run", "http://localhost:8181"],
+      "env": {}
+    }
+  }
+}
