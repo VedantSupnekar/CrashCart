@@ -159,52 +159,6 @@ const DEFAULT_SOLUTIONS = [
     notes: 'Requires process PID to be substituted'
   },
   {
-    id: 'demo_cleanup_solution',
-    problem_patterns: ['memory_critical', 'memory_high', 'cpu_high_load', 'process_cpu_hog_*', 'process_memory_hog_*'],
-    title: 'Clean Demo Problems (Hackathon Demo)',
-    description: 'Clean up artificial problems created for hackathon demonstration',
-    solution_type: 'demo_cleanup',
-    commands: [
-      {
-        platform: 'darwin',
-        command: 'rm -rf ~/demo_system_problems',
-        description: 'Remove demo problem files',
-        risk_level: 'low'
-      },
-      {
-        platform: 'darwin',
-        command: 'pkill -f "memory_hog.js cpu_hog.js"',
-        description: 'Stop demo processes',
-        risk_level: 'low'
-      },
-      {
-        platform: 'linux',
-        command: 'rm -rf ~/demo_system_problems',
-        description: 'Remove demo problem files',
-        risk_level: 'low'
-      },
-      {
-        platform: 'linux',
-        command: 'pkill -f "memory_hog.js cpu_hog.js"',
-        description: 'Stop demo processes',
-        risk_level: 'low'
-      }
-    ],
-    system_requirements: {
-      platforms: ['darwin', 'linux'],
-      min_memory_gb: 0,
-      requires_admin: false
-    },
-    success_rate: 1.0,
-    application_count: 0,
-    success_count: 0,
-    last_updated: '2024-08-16T19:00:00Z',
-    version: '1.0.0',
-    keywords: ['demo', 'cleanup', 'hackathon', 'memory', 'cpu', 'process'],
-    created_by: 'system',
-    notes: 'Demo solution for hackathon presentation - cleans up artificial problems'
-  },
-  {
     id: 'security_incident_response',
     problem_patterns: ['security_breach_detected', 'malware_communication_detected'],
     title: 'Security Incident Response - Immediate Threat Containment',
@@ -283,74 +237,6 @@ const DEFAULT_SOLUTIONS = [
     keywords: ['payment', 'service', 'database', 'recovery', 'optimization', 'revenue'],
     created_by: 'platform_team',
     notes: 'Critical for revenue protection - restores payment processing capability'
-  },
-  {
-    id: 'api_service_scaling',
-    problem_patterns: ['api_service_overload'],
-    title: 'API Service Scaling - Rate Limit & Circuit Breaker Recovery',
-    description: 'Scale API services and reset rate limits to restore partner connectivity',
-    solution_type: 'scaling',
-    commands: [
-      {
-        platform: 'darwin',
-        command: 'redis-cli FLUSHDB && redis-cli SET rate_limit_reset "$(date +%s)"',
-        description: 'Reset API rate limiting counters',
-        risk_level: 'low'
-      },
-      {
-        platform: 'darwin',
-        command: 'curl -X POST http://localhost:8080/admin/circuit-breaker/reset',
-        description: 'Reset circuit breakers for partner APIs',
-        risk_level: 'low'
-      }
-    ],
-    system_requirements: {
-      platforms: ['darwin', 'linux'],
-      min_memory_gb: 2,
-      requires_admin: false
-    },
-    success_rate: 0.88,
-    application_count: 29,
-    success_count: 25,
-    last_updated: '2024-08-16T20:00:00Z',
-    version: '1.3.0',
-    keywords: ['api', 'scaling', 'rate_limit', 'circuit_breaker', 'partners'],
-    created_by: 'api_team',
-    notes: 'Restores partner connectivity and prevents service degradation'
-  },
-  {
-    id: 'data_integrity_restoration',
-    problem_patterns: ['data_integrity_risk'],
-    title: 'Data Integrity Restoration - Backup Recovery & Corruption Repair',
-    description: 'Restore data integrity through backup recovery and database repair procedures',
-    solution_type: 'data_recovery',
-    commands: [
-      {
-        platform: 'darwin',
-        command: 'rm -rf ~/banking_incident_demo/database/customer_db.log.corrupt',
-        description: 'Clear corrupted database logs',
-        risk_level: 'low'
-      },
-      {
-        platform: 'linux',
-        command: 'mysqldump -u backup -p banking_db > /backup/emergency_backup_$(date +%Y%m%d).sql',
-        description: 'Create emergency database backup',
-        risk_level: 'low'
-      }
-    ],
-    system_requirements: {
-      platforms: ['darwin', 'linux'],
-      min_memory_gb: 8,
-      requires_admin: true
-    },
-    success_rate: 0.96,
-    application_count: 18,
-    success_count: 17,
-    last_updated: '2024-08-16T20:00:00Z',
-    version: '1.5.0',
-    keywords: ['data', 'integrity', 'backup', 'recovery', 'corruption', 'compliance'],
-    created_by: 'data_team',
-    notes: 'Critical for compliance and data protection - prevents data loss'
   },
   {
     id: 'banking_incident_cleanup',
