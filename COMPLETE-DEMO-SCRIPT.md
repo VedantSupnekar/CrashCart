@@ -53,7 +53,7 @@ This script demonstrates the complete AI-powered banking system troubleshooting 
 > "Detect problems again and find solutions for any integration issues"
 
 **Expected:**
-- Claude detects "Banking Integration System Failure"
+- Claude detects "Third-Party Integration SSL & API Failure"
 - Searches for solutions but finds NONE
 - Offers to create support ticket
 
@@ -62,7 +62,7 @@ This script demonstrates the complete AI-powered banking system troubleshooting 
 ## **PART 5: Support Ticket Workflow** ⏱️ *2 minutes*
 
 **Say to Claude:**
-> "Yes, please create a support ticket for the banking integration failure with critical urgency"
+> "Yes, please create a support ticket for the third-party integration SSL failure with critical urgency"
 
 **Expected:** Claude creates ticket with ID like `TICKET-1234567-ABC123`
 
@@ -88,7 +88,7 @@ This script demonstrates the complete AI-powered banking system troubleshooting 
 ## **PART 7: Verify Learning** ⏱️ *1 minute*
 
 **Say to Claude:**
-> "Show me the solutions database again and find solutions for banking_integration_failure"
+> "Show me the solutions database again and find solutions for third_party_integration_ssl_failure"
 
 **Expected:**
 - Database now shows 7 solutions (was 6) 

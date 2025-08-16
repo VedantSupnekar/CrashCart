@@ -1030,11 +1030,11 @@ async function detectBusinessCriticalIssues(problems, systemData) {
       
       if (apiFailures > 0 || criticalErrors > 0) {
         problems.push({
-          id: 'banking_integration_failure',
+          id: 'third_party_integration_ssl_failure',
           type: 'integration',
           severity: 'critical',
-          title: 'Banking Integration System Failure',
-          description: `Critical banking integration failure: ${apiFailures} API failures, ${criticalErrors} critical errors, ${sslErrors} SSL issues, ${authFailures} auth failures`,
+          title: 'Third-Party Integration SSL & API Failure',
+          description: `Critical third-party integration failure: ${apiFailures} API failures, ${criticalErrors} critical errors, ${sslErrors} SSL issues, ${authFailures} auth failures`,
           context: {
             api_failures: apiFailures,
             critical_errors: criticalErrors,
@@ -1045,7 +1045,7 @@ async function detectBusinessCriticalIssues(problems, systemData) {
             compliance_risk: true,
             message_queue_overflow: true
           },
-          keywords: ['integration', 'api', 'banking', 'third_party', 'ssl', 'authentication', 'cobol', 'legacy'],
+          keywords: ['ssl', 'certificate', 'api', 'integration', 'cobol', 'third_party', 'authentication'],
         });
       }
       
